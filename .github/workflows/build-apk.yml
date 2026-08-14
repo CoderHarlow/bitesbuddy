@@ -8,21 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.32.8'
+          flutter-version: '3.35.0'
           channel: stable
-          cache: true
 
-      - name: Create .env file
-        run: |
-          echo "GOOGLE_AI_API_KEY=${{ secrets.GOOGLE_AI_API_KEY }}" > .env
-
-      - name: Get Flutter dependencies
+      - name: Install dependencies
         run: flutter pub get
 
       - name: Build APK
@@ -31,5 +26,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: bitebuddy-apk
+          name: BiteBuddy-APK
           path: build/app/outputs/flutter-apk/app-release.apk
